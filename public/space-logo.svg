@@ -1,0 +1,68 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Deep space background circle -->
+  <circle cx="256" cy="256" r="256" fill="#050714"/>
+  
+  <!-- Cosmic gradient -->
+  <circle cx="256" cy="256" r="220" fill="url(#cosmicGradient)"/>
+  
+  <!-- Stars -->
+  <circle cx="120" cy="180" r="3" fill="white" opacity="0.8"/>
+  <circle cx="420" cy="150" r="2" fill="white" opacity="0.6"/>
+  <circle cx="380" cy="380" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="150" cy="350" r="2" fill="white" opacity="0.9"/>
+  <circle cx="300" cy="120" r="3" fill="white" opacity="0.8"/>
+  <circle cx="200" cy="400" r="2" fill="white" opacity="0.7"/>
+  
+  <!-- Planet with ring -->
+  <circle cx="256" cy="256" r="80" fill="url(#planetGradient)"/>
+  
+  <!-- Planet ring -->
+  <ellipse cx="256" cy="256" rx="140" ry="30" transform="rotate(-20 256 256)" fill="url(#ringGradient)" opacity="0.7"/>
+  
+  <!-- Initial S -->
+  <path d="M236 226C236 213.85 245.85 204 258 204H278C290.15 204 300 213.85 300 226V236C300 248.15 290.15 258 278 258H258C245.85 258 236 267.85 236 280V290C236 302.15 245.85 312 258 312H278C290.15 312 300 302.15 300 290" stroke="#F5F5F7" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- Orbit path -->
+  <circle cx="256" cy="256" r="180" stroke="url(#orbitGradient)" stroke-width="2" stroke-dasharray="10 5" opacity="0.5"/>
+  
+  <!-- Small orbiting moon -->
+  <circle cx="400" cy="256" r="15" fill="url(#moonGradient)"/>
+  
+  <!-- Glow effects -->
+  <circle cx="256" cy="256" r="100" fill="url(#glowGradient)" opacity="0.3"/>
+  
+  <!-- Definitions for gradients -->
+  <defs>
+    <radialGradient id="cosmicGradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2A0944"/>
+      <stop offset="1" stop-color="#0B0D17"/>
+    </radialGradient>
+    
+    <linearGradient id="planetGradient" x1="176" y1="176" x2="336" y2="336" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4361EE"/>
+      <stop offset="1" stop-color="#7209B7"/>
+    </linearGradient>
+    
+    <linearGradient id="ringGradient" x1="116" y1="256" x2="396" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4CC9F0" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#4CC9F0"/>
+      <stop offset="1" stop-color="#4CC9F0" stop-opacity="0"/>
+    </linearGradient>
+    
+    <linearGradient id="orbitGradient" x1="76" y1="256" x2="436" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#72EFDD" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#72EFDD"/>
+      <stop offset="1" stop-color="#72EFDD" stop-opacity="0"/>
+    </linearGradient>
+    
+    <linearGradient id="moonGradient" x1="385" y1="241" x2="415" y2="271" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#72EFDD"/>
+      <stop offset="1" stop-color="#4CC9F0"/>
+    </linearGradient>
+    
+    <radialGradient id="glowGradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4CC9F0" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#4CC9F0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
