@@ -59,4 +59,3 @@ A modern, space-themed portfolio website built with Next.js, TypeScript, and Tai
 ## License 📄
 
 This project is open source and available under the MIT License.
-# Portfolio-

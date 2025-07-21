@@ -49,7 +49,7 @@ export default function Contact() {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-
+  
   const sendToWhatsApp = (data: typeof formData) => {
     const whatsappNumber = '918287486474';
     const message = `

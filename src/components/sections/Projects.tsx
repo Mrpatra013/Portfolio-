@@ -113,7 +113,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           </motion.a>
           
           <motion.a 
-            href={project.demo}
+            href={project.demo} 
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-sm text-foreground/70 hover:text-white transition-colors"
@@ -158,11 +158,11 @@ export default function Projects() {
         
         {/* Projects grid */}
         {isClient && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
+        </div>
         )}
         
         {/* View more projects button */}
