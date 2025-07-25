@@ -59,14 +59,24 @@ export default function OrbitingPlanet({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
+    // Check if on mobile screen
+    const isMobile = window.innerWidth < 768;
+    const glowScaleFactor = isMobile ? 0.7 : 1; // Reduce glow size on mobile
+    
     // Set canvas dimensions
     const setCanvasSize = () => {
-      const size = orbitRadius * 2 + planetSize * 4; // Make canvas large enough for orbit + planet + glow
+      const size = orbitRadius * 2 + planetSize * 4 * glowScaleFactor; // Adjust canvas size for mobile
       canvas.width = size;
       canvas.height = size;
     };
     
+    // Handle window resize
+    const handleResize = () => {
+      setCanvasSize();
+    };
+    
     setCanvasSize();
+    window.addEventListener('resize', handleResize);
     
     // Animation variables
     let angle = 0;
@@ -99,12 +109,16 @@ export default function OrbitingPlanet({
       const planetX = centerX + Math.cos(angle) * orbitRadius;
       const planetY = centerY + Math.sin(angle) * orbitRadius;
       
-      // Enhanced outer glow (larger radius)
+      // Check if on mobile screen (recheck in the animation loop for window resizing)
+      const isMobile = window.innerWidth < 768;
+      const glowScaleFactor = isMobile ? 0.7 : 1; // Reduce glow size on mobile
+      
+      // Enhanced outer glow (smaller radius on mobile)
       ctx.beginPath();
-      ctx.arc(planetX, planetY, planetSize * 3, 0, Math.PI * 2);
+      ctx.arc(planetX, planetY, planetSize * 3 * glowScaleFactor, 0, Math.PI * 2);
       const outerGlow = ctx.createRadialGradient(
         planetX, planetY, 0,
-        planetX, planetY, planetSize * 3
+        planetX, planetY, planetSize * 3 * glowScaleFactor
       );
       outerGlow.addColorStop(0, `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${glowStrength * 0.5})`);
       outerGlow.addColorStop(0.5, `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${glowStrength * 0.2})`);
@@ -112,12 +126,12 @@ export default function OrbitingPlanet({
       ctx.fillStyle = outerGlow;
       ctx.fill();
       
-      // Middle glow (more intense)
+      // Middle glow (smaller on mobile)
       ctx.beginPath();
-      ctx.arc(planetX, planetY, planetSize * 2, 0, Math.PI * 2);
+      ctx.arc(planetX, planetY, planetSize * 2 * glowScaleFactor, 0, Math.PI * 2);
       const middleGlow = ctx.createRadialGradient(
         planetX, planetY, 0,
-        planetX, planetY, planetSize * 2
+        planetX, planetY, planetSize * 2 * glowScaleFactor
       );
       middleGlow.addColorStop(0, `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${glowStrength * 0.7})`);
       middleGlow.addColorStop(0.7, `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${glowStrength * 0.3})`);
@@ -125,12 +139,12 @@ export default function OrbitingPlanet({
       ctx.fillStyle = middleGlow;
       ctx.fill();
       
-      // Inner glow
+      // Inner glow (slightly smaller on mobile)
       ctx.beginPath();
-      ctx.arc(planetX, planetY, planetSize * 1.2, 0, Math.PI * 2);
+      ctx.arc(planetX, planetY, planetSize * 1.2 * glowScaleFactor, 0, Math.PI * 2);
       const innerGlow = ctx.createRadialGradient(
         planetX, planetY, 0,
-        planetX, planetY, planetSize * 1.2
+        planetX, planetY, planetSize * 1.2 * glowScaleFactor
       );
       innerGlow.addColorStop(0, `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${glowStrength * 1.2})`);
       innerGlow.addColorStop(0.5, `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${glowStrength * 0.8})`);
@@ -163,6 +177,7 @@ export default function OrbitingPlanet({
     
     // Cleanup
     return () => {
+      window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationId);
     };
   }, [orbitRadius, planetSize, orbitSpeed, primaryColor, secondaryColor, glowIntensity, orbitWidth, orbitColor, orbitOpacity]);
