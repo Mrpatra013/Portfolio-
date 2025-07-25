@@ -117,9 +117,10 @@ export default function Contact() {
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 3000);
-    } catch (error: any) {
-      console.error('Error sending message:', error);
-      alert(error.message || 'Failed to send message');
+  } catch (error: Error | unknown) {
+    console.error('Error sending message:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Failed to send message';
+    alert(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
