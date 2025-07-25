@@ -86,7 +86,7 @@ function SkillCategory({ category, index }: { category: typeof skillCategories[0
         </div>
         
         <div className="space-y-4">
-          {category.skills.map((skill, idx) => (
+          {category.skills.map((skill) => (
             <SkillBar 
               key={skill.name} 
               name={skill.name} 

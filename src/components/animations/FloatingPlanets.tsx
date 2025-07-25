@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface Planet {
@@ -17,8 +17,10 @@ interface Planet {
 export default function FloatingPlanets() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const planetsRef = useRef<Planet[]>([]);
-  
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
     const canvas = canvasRef.current;
     if (!canvas) return;
     
@@ -30,29 +32,30 @@ export default function FloatingPlanets() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       
-      // Center coordinates
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
+      // Canvas dimensions (used for positioning)
       
       // Initialize planets
-      const planetColors = [
-        '#4cc9f0', // Electric blue
-        '#7209b7', // Cosmic purple
-        '#72efdd', // Neon teal
-        '#f72585', // Pink
-        '#4361ee', // Stellar blue
-      ];
-      
-      planetsRef.current = Array.from({ length: 5 }, (_, i) => ({
-        x: 0,
-        y: 0,
-        size: Math.random() * 20 + 10, // Larger size for planets
-        color: planetColors[i % planetColors.length],
-        speed: Math.random() * 0.001 + 0.0005,
-        angle: Math.random() * Math.PI * 2,
-        distance: Math.random() * 100 + 150,
-        rotationRadius: Math.random() * 100 + (i * 40) + 80 // Smaller orbit radiuses
-      }));
+      const initializePlanets = () => {
+        const planetColors = [
+          '#4cc9f0', // Electric blue
+          '#7209b7', // Cosmic purple
+          '#72efdd', // Neon teal
+          '#f72585', // Pink
+          '#4361ee', // Stellar blue
+        ];
+        
+        planetsRef.current = Array.from({ length: 5 }, (_, i) => ({
+          x: 0,
+          y: 0,
+          size: Math.random() * 20 + 10, // Larger size for planets
+          color: planetColors[i % planetColors.length],
+          speed: Math.random() * 0.001 + 0.0005,
+          angle: Math.random() * Math.PI * 2,
+          distance: Math.random() * 100 + 150,
+          rotationRadius: Math.random() * 100 + (i * 40) + 80 // Smaller orbit radiuses
+        }));
+      };
+      initializePlanets();
     };
     
     handleResize();
@@ -135,7 +138,7 @@ export default function FloatingPlanets() {
     };
   }, []);
   
-  return (
+  return mounted ? (
     <motion.canvas
       ref={canvasRef}
       className="fixed top-0 left-0 w-full h-full -z-5 pointer-events-none"
@@ -143,5 +146,5 @@ export default function FloatingPlanets() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5, delay: 0.5 }}
     />
-  );
+  ) : null;
 }

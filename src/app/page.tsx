@@ -1,5 +1,5 @@
-import StarField from "@/components/animations/StarField";
-import FloatingPlanets from "@/components/animations/FloatingPlanets";
+import StarFieldClient from "@/components/StarFieldClient";
+import FloatingPlanetsClient from "@/components/FloatingPlanetsClient";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Skills from "@/components/sections/Skills";
@@ -13,10 +13,10 @@ export default function Home() {
   return (
     <div className="relative">
       {/* Dark space background with minimal stars */}
-      <StarField starCount={80} maxSize={2} darkBackground={true} />
+      <StarFieldClient starCount={80} maxSize={2} darkBackground={true} />
       
       {/* Floating planets with smaller orbits */}
-      <FloatingPlanets />
+      <FloatingPlanetsClient />
       
       {/* Navigation */}
       <Navbar />

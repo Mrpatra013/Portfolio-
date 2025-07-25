@@ -69,7 +69,7 @@ export default function About() {
               <h3 className="text-2xl font-bold mb-4 text-accent-highlight">Frontend Developer</h3>
               
               <p className="mb-4 text-foreground/90">
-                Hello! I'm <span className="text-accent-primary font-semibold">Sahil Patra</span>, a passionate frontend developer with a love for creating beautiful, responsive, and user-friendly web experiences.
+                Hello! I&apos;m <span className="text-accent-primary font-semibold">Sahil Patra</span>, a passionate frontend developer with a love for creating beautiful, responsive, and user-friendly web experiences.
               </p>
               
               <p className="mb-6 text-foreground/90">

@@ -5,16 +5,28 @@ import { motion } from 'framer-motion';
 import { Github, ExternalLink } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import Image from 'next/image';
+// No need for server launcher anymore
+
+// Project type definition
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  github: string;
+  demo: string; // URL to live demo
+  color: string;
+}
 
 // Project data
-const projects = [
+const projects: Project[] = [
   {
     title: 'Burger Builder',
     description: 'A dynamic burger customization app built with HTML, CSS, and JavaScript. Users can build their perfect burger by adding or removing ingredients in real-time, with a sleek and intuitive interface.',
     image: '/projects/project-1.png',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
     github: 'https://github.com/Mrpatra013/BURGER',
-    demo: '/work/BURGER/index.html',
+    demo: 'https://github.com/Mrpatra013/BURGER', // Direct link to GitHub repo
     color: '#f72585'
   },
   {
@@ -23,7 +35,7 @@ const projects = [
     image: '/projects/project-2.png',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Animation'],
     github: 'https://github.com/Mrpatra013/3D_HERO_PAGE',
-    demo: '/work/3D-HERO PAGE/index.html',
+    demo: 'https://github.com/Mrpatra013/3D_HERO_PAGE', // Direct link to GitHub repo
     color: '#4cc9f0'
   },
   {
@@ -31,13 +43,13 @@ const projects = [
     description: 'A sleek and modern web application showcasing advanced CSS animations and interactive user interfaces. Built with attention to detail and focus on user experience.',
     image: '/projects/project-3.png',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Animation'],
-    github: 'https://github.com/Mrpatra013/lazerev',
-    demo: '/work/lazerev/index.html',
+    github: 'https://github.com/Mrpatra013/LAZAREV',
+    demo: 'https://github.com/Mrpatra013/LAZAREV', // Direct link to GitHub repo
     color: '#7209b7'
   }
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
   
   return (
@@ -95,34 +107,32 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         </div>
         
         {/* Project links */}
-        <div className="flex justify-between mt-auto pt-2 border-t border-white/10"
+        <div className="flex justify-between mt-auto pt-2 border-t border-white/10 relative z-10"
           style={{
             borderColor: isHovered ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)'
           }}
         >
-          <motion.a 
+          <a 
             href={project.github} 
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm text-foreground/70 hover:text-white transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-1 text-sm text-foreground/70 hover:text-white transition-colors cursor-pointer p-1 project-card-link"
+            onClick={(e) => e.stopPropagation()}
           >
             <Github size={16} />
             <span>Code</span>
-          </motion.a>
+          </a>
           
-          <motion.a 
-            href={project.demo} 
+          <a 
+            href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm text-foreground/70 hover:text-white transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-1 text-sm text-foreground/70 hover:text-white transition-colors cursor-pointer p-1 project-card-link"
+            onClick={(e) => e.stopPropagation()}
           >
             <ExternalLink size={16} />
-            <span>Live Demo</span>
-          </motion.a>
+            <span>View Project</span>
+          </a>
         </div>
       </GlassCard>
     </motion.div>
@@ -174,11 +184,11 @@ export default function Projects() {
           transition={{ delay: 0.5 }}
         >
           <motion.a 
-            href="https://github.com" 
+            href="https://github.com/Mrpatra013?tab=repositories" 
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-space-dark/50 border border-accent-primary/30 text-accent-primary hover:bg-space-dark hover:border-accent-primary transition-all"
-            whileHover={{ scale: 1.05, boxShadow: '0 0 15px rgba(76, 201, 240, 0.3)' }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-space-dark/50 border border-accent-primary/30 text-accent-primary hover:bg-space-dark hover:border-accent-primary transition-all cursor-pointer"
+            whileHover={{ scale: 1.05, boxShadow: '0 0 15px rgba(76, 201, 240, 0.3)' }} 
             whileTap={{ scale: 0.98 }}
           >
             <span>View More on GitHub</span>
@@ -198,10 +208,10 @@ export default function Projects() {
       <motion.div 
         className="absolute bottom-1/3 -left-20 w-60 h-60 bg-accent-tertiary/10 rounded-full blur-3xl"
         animate={{ 
-          scale: [1, 1.3, 1],
+          scale: [1, 1.2, 1],
           opacity: [0.2, 0.4, 0.2]
         }}
-        transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+        transition={{ duration: 8, repeat: Infinity }}
       />
     </section>
   );
