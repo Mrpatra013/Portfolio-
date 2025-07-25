@@ -1,6 +1,27 @@
 'use client';
 
 import { useState } from 'react';
+import { ReactElement } from 'react';
+
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface ContactItem {
+  icon: ReactElement;
+  title: string;
+  value: string;
+  link: string | null;
+}
+
+interface SocialLink {
+  name: string;
+  icon: ReactElement;
+  url: string;
+}
 import { motion } from 'framer-motion';
 import GlassCard from '../ui/GlassCard';
 import GlowButton from '../ui/GlowButton';
@@ -14,7 +35,7 @@ const socialLinks = [
 ];
 
 // Contact info items
-const contactInfo = [
+const contactInfo: ContactItem[] = [
   { 
     icon: <Mail className="text-accent-primary" size={24} />, 
     title: 'Email', 
@@ -50,8 +71,14 @@ export default function Contact() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const sendToWhatsApp = (data: typeof formData) => {
-    const whatsappNumber = '918287486474';
+  const sendToWhatsApp = (data: FormData) => {
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER 
+      || '918287486474'; // Fallback number
+    
+    if (!whatsappNumber.match(/^\d{10,15}$/)) {
+      throw new Error('Invalid WhatsApp number configuration');
+    }
+
     const message = `
 *New Contact Form Submission*
 ------------------------
@@ -66,12 +93,22 @@ export default function Contact() {
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill all required fields');
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
       const whatsappUrl = sendToWhatsApp(formData);
-      window.open(whatsappUrl, '_blank');
+      const newWindow = window.open(whatsappUrl, '_blank');
       
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        throw new Error('Popup blocked - Please allow popups for this site');
+      }
+
       // Clear form and show success message
       setFormData({ name: '', email: '', subject: '', message: '' });
       setSubmitSuccess(true);
@@ -80,8 +117,9 @@ export default function Contact() {
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 3000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending message:', error);
+      alert(error.message || 'Failed to send message');
     } finally {
       setIsSubmitting(false);
     }

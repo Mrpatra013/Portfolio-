@@ -56,6 +56,23 @@ body {
   color: var(--space-dark);
 }
 
+/* Make all anchor tags have pointer cursor */
+a {
+  cursor: pointer;
+  position: relative;
+}
+
+/* Special handling for project card links */
+.project-card-link {
+  cursor: pointer !important;
+  z-index: 30;
+  position: relative;
+}
+
+.project-card-link:hover {
+  text-decoration: underline;
+}
+
 /* Update the glow border styles */
 
 .glow-border {

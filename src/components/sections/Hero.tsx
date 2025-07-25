@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import TypeWriter from '../animations/TypeWriter';
 import GlowButton from '../ui/GlowButton';
 import CircularHighlight from '../ui/CircularHighlight';
+import MultiOrbitPlanets from '../animations/MultiOrbitPlanets';
 import { ArrowDown } from 'lucide-react';
 
 export default function Hero() {
@@ -15,13 +16,16 @@ export default function Hero() {
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-20">
       {/* Circular highlight in the center */}
       <CircularHighlight 
-        size={400}
+        size={600}
         color="#4cc9f0"
         secondaryColor="#7209b7"
         intensity="medium"
         pulseEffect={true}
-        className="opacity-90"
+        className="opacity-85"
       />
+      
+      {/* Orbiting planets animation */}
+      <MultiOrbitPlanets className="z-5" />
       
       {/* Hero content */}
       <motion.div

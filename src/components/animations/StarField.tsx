@@ -18,7 +18,7 @@ interface StarFieldProps {
   darkBackground?: boolean;
 }
 
-export default function StarField({ 
+export default function StarField({
   starCount = 80, // Reduced star count
   maxSize = 2, // Smaller stars
   className = '',
@@ -40,13 +40,17 @@ export default function StarField({
       canvas.height = window.innerHeight;
       
       // Initialize stars
-      starsRef.current = Array.from({ length: starCount }, () => ({
+      const initializeStars = () => {
+        starsRef.current = Array.from({ length: starCount }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * maxSize + 0.1,
         opacity: Math.random() * 0.8 + 0.2,
         speed: Math.random() * 0.05 + 0.01
       }));
+      };
+
+      initializeStars();
     };
     
     handleResize();
@@ -94,15 +98,17 @@ export default function StarField({
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationId);
     };
-  }, [starCount, maxSize]);
+  }, [starCount, maxSize, darkBackground]);
   
+
+
   return (
     <motion.canvas
       ref={canvasRef}
-      className={`fixed top-0 left-0 w-full h-full -z-10 ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
+      transition={{ duration: 2 }}
+      className="absolute inset-0 z-0"
     />
   );
 }
