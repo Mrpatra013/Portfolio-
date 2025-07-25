@@ -21,9 +21,10 @@ const skillCategories = [
     color: 'var(--accent-primary)'
   },
   {
-    title: 'AI-Powered Development Tools',
+    title: 'AI-Powered Development Terminals & Tools',
     icon: '🤖',
     skills: [
+      { name: 'Warp AI', level: 98 },
       { name: 'Trae', level: 85 },
       { name: 'Windsurf', level: 80 },
       { name: 'Cursor', level: 88 },

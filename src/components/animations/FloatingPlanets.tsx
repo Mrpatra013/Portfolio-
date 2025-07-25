@@ -44,15 +44,19 @@ export default function FloatingPlanets() {
           '#4361ee', // Stellar blue
         ];
         
+        // Calculate scale factor based on screen width (smaller on mobile)
+        const isMobile = window.innerWidth < 768;
+        const scaleFactor = isMobile ? 0.6 : 1;
+        
         planetsRef.current = Array.from({ length: 5 }, (_, i) => ({
           x: 0,
           y: 0,
-          size: Math.random() * 20 + 10, // Larger size for planets
+          size: (Math.random() * 20 + 10) * scaleFactor, // Scale size for mobile
           color: planetColors[i % planetColors.length],
           speed: Math.random() * 0.001 + 0.0005,
           angle: Math.random() * Math.PI * 2,
           distance: Math.random() * 100 + 150,
-          rotationRadius: Math.random() * 100 + (i * 40) + 80 // Smaller orbit radiuses
+          rotationRadius: (Math.random() * 100 + (i * 40) + 80) * scaleFactor // Scale radius for mobile
         }));
       };
       initializePlanets();

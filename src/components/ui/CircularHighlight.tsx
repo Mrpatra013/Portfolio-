@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 interface CircularHighlightProps {
   size?: number;
@@ -44,14 +45,37 @@ export default function CircularHighlight({
   const secondaryRgb = getRgbFromHex(secondaryColor);
   const baseOpacity = getOpacity();
 
+  // Use state to track mobile screen status
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const [mobileScale, setMobileScale] = useState(1);
+  
+  // Effect to handle window resize and check for mobile screens
+  useEffect(() => {
+    // Initial check
+    const checkMobileScreen = () => {
+      const isMobile = window.innerWidth < 768;
+      setIsMobileScreen(isMobile);
+      setMobileScale(isMobile ? 0.65 : 1); // Scale down by 35% on mobile devices
+    };
+    
+    // Check immediately
+    checkMobileScreen();
+    
+    // Set up event listener for resize
+    window.addEventListener('resize', checkMobileScreen);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', checkMobileScreen);
+  }, []);
+  
   return (
     <div className={`absolute pointer-events-none ${className}`} style={{ zIndex: 1 }}>
       {/* Outer glow layer */}
       <motion.div
         className="absolute rounded-full"
         style={{
-          width: `${size * 1.2}px`,
-          height: `${size * 1.2}px`,
+          width: `${size * 1.2 * mobileScale}px`,
+          height: `${size * 1.2 * mobileScale}px`,
           left: '50%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
@@ -80,8 +104,8 @@ export default function CircularHighlight({
       <motion.div
         className="absolute rounded-full"
         style={{
-          width: `${size}px`,
-          height: `${size}px`,
+          width: `${size * mobileScale}px`,
+          height: `${size * mobileScale}px`,
           left: '50%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
@@ -93,7 +117,7 @@ export default function CircularHighlight({
             rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0) 100%
           )`,
           filter: 'blur(8px)',
-          boxShadow: `0 0 ${size/8}px rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${baseOpacity * 0.5})`,
+          boxShadow: `0 0 ${(size * mobileScale)/8}px rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${baseOpacity * 0.5})`,
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ 
@@ -107,8 +131,8 @@ export default function CircularHighlight({
       <motion.div
         className="absolute rounded-full"
         style={{
-          width: `${size * 0.5}px`,
-          height: `${size * 0.5}px`,
+          width: `${size * 0.5 * mobileScale}px`,
+          height: `${size * 0.5 * mobileScale}px`,
           left: '50%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
