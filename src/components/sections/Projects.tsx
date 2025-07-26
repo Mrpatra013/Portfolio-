@@ -26,7 +26,7 @@ const projects: Project[] = [
     image: '/projects/project-1.png',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
     github: 'https://github.com/Mrpatra013/BURGER',
-    demo: 'https://github.com/Mrpatra013/BURGER', // Direct link to GitHub repo
+    demo: 'https://github.com/Mrpatra013/BURGER', // GitHub repo URL
     color: '#f72585'
   },
   {

@@ -88,6 +88,14 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.3 }}
           >
+            {/* Close button */}
+            <button
+              className="absolute top-6 right-6 text-foreground hover:text-accent-primary focus:outline-none"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={32} />
+            </button>
             <nav className="flex flex-col items-center space-y-6 p-4">
               {navLinks.map((link, index) => (
                 <motion.a
