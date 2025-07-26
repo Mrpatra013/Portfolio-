@@ -65,22 +65,10 @@ export default function Hero() {
           </h2>
         )}
         
-        {/* Description, appears after role is typed */}
-        {isRoleTyped && (
-          <motion.p 
-            className="text-lg mb-12 max-w-2xl mx-auto text-foreground/80 w-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7 }}
-          >
-            Crafting stellar web experiences with modern technologies and AI-powered development tools.
-          </motion.p>
-        )}
-        
         {/* CTA Buttons, appear after role is typed */}
         {isRoleTyped && (
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center w-full"
+            className="flex flex-row gap-4 justify-center items-center w-full"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -88,7 +76,11 @@ export default function Hero() {
             <GlowButton href="#projects" variant="primary">
               View My Work
             </GlowButton>
-            <GlowButton href="#contact" variant="outline">
+            <GlowButton 
+              href="#contact" 
+              variant="outline"
+              className="sm:px-6 sm:py-2 px-4 py-1.5 text-xs sm:text-sm border-2"
+            >
               Contact Me
             </GlowButton>
           </motion.div>
